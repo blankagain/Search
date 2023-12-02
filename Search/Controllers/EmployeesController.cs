@@ -3,6 +3,7 @@ using Search.Models;
 using Search.Models.Domain;
 using Search.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Runtime.CompilerServices;
 
 namespace Search.Controllers
 {
@@ -23,6 +24,7 @@ namespace Search.Controllers
             return View(employees);
         }
 
+        // Add new employee
         [HttpGet]
         public IActionResult Add()
         {
@@ -48,6 +50,7 @@ namespace Search.Controllers
             return RedirectToAction("Add");
         }
 
+        // Get Request for Update
         [HttpGet]
         public async Task<IActionResult> View(Guid id)
         {
@@ -74,6 +77,7 @@ namespace Search.Controllers
            
         }
 
+        // Update the Database
         [HttpPost]
         public async Task<IActionResult> View(UpdateEmployeeViewModel model)
         {
@@ -93,6 +97,7 @@ namespace Search.Controllers
             return RedirectToAction("Index");
         }
 
+        //Delete
         [HttpPost] 
         public async Task<IActionResult> Delete (UpdateEmployeeViewModel model)
         {
@@ -108,5 +113,25 @@ namespace Search.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        //Search
+
+        [HttpGet]
+        public async Task<IActionResult> SearchIndex(string SearchString)
+        {
+            ViewData["Filter"] = SearchString;
+            var employee = from Name in mvcDemoDbContext.Employees
+                           select Name;
+
+            if (!String.IsNullOrEmpty(SearchString))
+            {
+                employee = employee.Where(x => x.Name == SearchString);
+
+            }
+            return View(employee);
+        }
+
+
+
     }
 }

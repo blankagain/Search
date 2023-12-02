@@ -1,15 +1,28 @@
 ﻿@model List<Search.Models.Domain.Employee>
 
 @{
-    
+    int Sno = 0;
 }
+@*Search bar*@
+@*<h1>Employees</h1>
+<form asp-action="Index" method="get">
+    <div class=" form-group">
+        <label for="SearchString">Employee Name:</label>
+        <input type="text" name="SearchString"
+            value="@ViewData["Filter"]"/>
+        <input type="submit" value="Search" class="btn btn-primary"/>
 
-<h1>Employees</h1>
+    </div>
+
+</form>*@
+
+
 
 <table class="table">
     <thread>
 
       <tr>
+         <th>Sno</th>
         <th>Id</th>
         <th>Name</th>
         <th>Email</th>
@@ -23,7 +36,9 @@
     <tbody>
         @foreach (var employee in Model)
         {
+            Sno = Sno + 1;
             <tr>
+                <td>@Sno</td>
                 <td>@employee.Id</td>
                 <td>@employee.Name</td>
                 <td>@employee.Email</td>
@@ -37,3 +52,10 @@
     </tbody>
 
 </table>
+<script>
+    function changeBackground(color) {
+        document.body.style.background = color;
+    }
+
+    window.addEventListener("load", function () { changeBackground('#CCE1FF') });
+</script>

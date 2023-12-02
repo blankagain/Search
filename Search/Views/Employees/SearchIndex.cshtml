@@ -1,0 +1,24 @@
+﻿@model List<Search.Models.Domain.SearchIndex>
+
+@{
+    int Sno = 0;
+}
+@*Search bar*@
+<h1>Employees</h1>
+<form asp-action="Index" method="get">
+    <div class=" form-group">
+        <label for="SearchString">Employee Name:</label>
+        <input type="text" name="SearchString"
+               value="@ViewData["Filter"]" />
+        <input type="submit" value="Search" class="btn btn-primary" />
+
+    </div>
+
+</form>
+<script>
+function changeBackground(color) {
+   document.body.style.background = color;
+}
+
+window.addEventListener("load",function() { changeBackground('#CCE1FF') });
+</script>
